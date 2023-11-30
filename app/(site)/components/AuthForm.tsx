@@ -16,12 +16,12 @@ type Variant = "LOGIN" | "REGISTER";
 const AuthForm = () => {
   const session = useSession();
   const router = useRouter();
-  const [variant , setVariant] = useState<Variant>("LOGIN");
+  const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (session?.status === 'authenticated') {
-      router.push('/user');
+    if (session?.status === "authenticated") {
+      router.push("/users");
     }
   }, [session?.status, router]);
 
@@ -49,9 +49,9 @@ const AuthForm = () => {
     setIsLoading(true);
 
     if (variant === "REGISTER") {
-      axios.post('/api/register', data)
-        .then(() => signIn('credentials', data))
+      axios
         .post("/api/register", data)
+        .then(() => signIn("credentials", data))
         .catch(() => toast.error("Something went wrong!"))
         .finally(() => setIsLoading(false));
     }
@@ -68,7 +68,7 @@ const AuthForm = () => {
 
           if (callback?.ok && !callback?.error) {
             toast.success("Logged in!");
-            router.push('users');
+            router.push("users");
           }
         })
         .finally(() => setIsLoading(false));
@@ -79,16 +79,16 @@ const AuthForm = () => {
     setIsLoading(true);
 
     signIn(action, { redirect: false })
-    .then((callback) => {
-      if (callback?.error) {
-        toast.error("Invalid credentials");
-      }
+      .then((callback) => {
+        if (callback?.error) {
+          toast.error("Invalid credentials");
+        }
 
-      if (callback?.ok && !callback?.error) {
-        toast.success("Logged in!");
-      }
-    })
-    .finally(() => setIsLoading(false));
+        if (callback?.ok && !callback?.error) {
+          toast.success("Logged in!");
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <div className="mt-8 sm;mx-auto sm:w-full sm:max-w-md">
