@@ -6,6 +6,7 @@ import DesktopItem from "./DesktopItem";
 
 import { User } from "@prisma/client"
 import Avatar from "../Avatar";
+import { useSession } from "next-auth/react";
 
 interface DesktopSidebarProps {
   currentUser: User
@@ -18,6 +19,8 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   console.log({ currentUser })
+  const {data} = useSession();
+  console.log(data?.user?.image);
 
 
   return (
