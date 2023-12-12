@@ -64,7 +64,7 @@ export async function POST(request: Request) {
 
     const newConversation = await prisma.conversation.create({
       data: {
-        users: {
+        user: {
           connect: [
             {
               id: currentUser.id,
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         },
       },
       include: {
-        users: true,
+        user: true,
       },
     });
 
